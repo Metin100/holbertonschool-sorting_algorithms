@@ -1,5 +1,12 @@
 #include "sort.h"
 
+/**
+ * bubble_sort - a function that sorts an array of integers.
+ * @array : Array.
+ * @size : size of Array.
+ * Return: sorted array
+ */
+
 void bubble_sort(int *array, size_t size)
 {
 	unsigned long int i, j;
