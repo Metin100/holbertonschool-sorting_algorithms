@@ -1,64 +1,55 @@
 #include "sort.h"
 
 /**
- * quick_sort_recursive - Recursive func for quick sort.
- * @array: Array to sort.
- * @low: Lowest index to sort.
- * @high: Highest index to sort.
- * @size: Size of array.
- *
- * Return: Array.
+ * lomuto - quicksort recursive function
+ * @a: array to sort
+ * @min: lowest index
+ * @max: highest index
+ * @size: size of the array
  */
-int *quick_sort_recursive(int *array, int low, int high, int size)
+void lomuto(int *a, int min, int max, int size)
 {
-	int j, i, pivot, temp;
-
-	if (low >= high)
-		return (array);
-
-	pivot = array[high];
-	j = low;
-	for (i = low; i < high; i++)
+int x, i, j, temp;
+if (min < max)
+{
+	x = a[max];
+	i = min;
+	j = min;
+	while (j < max)
 	{
-		if (array[i] <= pivot)
+		if (a[j] <= x)
 		{
 			if (i != j)
 			{
-				temp = array[i];
-				array[i] = array[j];
-				array[j] = temp;
-				print_array(array, size);
+				temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
+				print_array(a, size);
 			}
-			j += 1;
+			i++;
 		}
+	j++;
 	}
-	if (j != high)
+	if (i != max)
 	{
-		temp = array[high];
-		array[high] = array[j];
-		array[j] = temp;
-		print_array(array, size);
+		temp = a[i];
+		a[i] = a[max];
+		a[max] = temp;
+		print_array(a, size);
 	}
-	quick_sort_recursive(array, low, j - 1, size);
-	quick_sort_recursive(array, j + 1, high, size);
-	return (array);
-
+	lomuto(a, min, i - 1, size);
+	lomuto(a, i + 1, max, size);
+}
 }
 
 /**
- * quick_sort - A function that sorts a doubly linked list
- *of integers in ascending order using the Insertion sort algorithm
- * @array: int array to sort
- * @size: size of array
- *
- * Return: void
+ * quick_sort - sorts array in ascending order
+ * @array: numbers for sorting
+ * @size: size of array for sorting
  */
 void quick_sort(int *array, size_t size)
 {
-	int low, high;
-
-	low = 0;
-	high = (int)size - 1;
-
-	quick_sort_recursive(array, low, high, size);
+if (array == NULL || size < 2)
+	return;
+lomuto(array, 0, size - 1, size);
 }
